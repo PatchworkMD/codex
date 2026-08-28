@@ -123,3 +123,29 @@ async fn respects_maximum_skill_scan_depth() {
         ]
     );
 }
+
+#[tokio::test]
+async fn scans_skill_roots_with_more_than_two_thousand_directories() {
+    let root = TempDir::new().expect("root temp dir");
+    for index in 0..2_500 {
+        fs::create_dir(root.path().join(format!("directory-{index:04}")))
+            .expect("create filler directory");
+    }
+    write_skill(root.path(), "zz-skill");
+
+    let discovery = discover(root.path()).await;
+
+    assert_eq!(discovery.warnings, Vec::<String>::new());
+    assert_eq!(
+        discovery
+            .skills
+            .into_iter()
+            .map(|skill| skill.path)
+            .collect::<Vec<_>>(),
+        vec![
+            canonical_uri(root.path())
+                .join("zz-skill/SKILL.md")
+                .expect("valid skill URI"),
+        ]
+    );
+}

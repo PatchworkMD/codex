@@ -29,4 +29,4 @@ pub(super) const MAX_DEPENDENCY_DESCRIPTION_LEN: usize = MAX_DESCRIPTION_LEN;
 pub(super) const MAX_DEPENDENCY_COMMAND_LEN: usize = MAX_DESCRIPTION_LEN;
 pub(super) const MAX_DEPENDENCY_URL_LEN: usize = MAX_DESCRIPTION_LEN;
 pub(super) const MAX_SCAN_DEPTH: usize = 6;
-pub(super) const MAX_SKILLS_DIRS_PER_ROOT: usize = 2000;
+pub(super) const MAX_SKILLS_DIRS_PER_ROOT: usize = 10_000;
